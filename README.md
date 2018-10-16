@@ -5,7 +5,7 @@ HEPIC Export Proxy w/ Authentication
 ## Instructions
 This simple, primitive proxy implementation allows UNAUTHORIZED ACCESS to an HEPIC Export route.
 
-**NO WARRANTIES! USE AT YOUR OWN RISK. BY IMPLEMENTING UNSECURED ACCESS YOU TAKE FULL RESPONSABILITY OVER ANY OUTCOME**
+**NO WARRANTIES! USE AT YOUR OWN RISK!**  <br>
 
 ### Setup
 ```
