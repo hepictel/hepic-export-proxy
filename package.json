@@ -1,0 +1,16 @@
+{
+  "name": "hepic-export-proxy",
+  "version": "1.0.0",
+  "description": "HEPIC Proxy Forwarded w/ Cookie Auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "L. Mangani (lorenzo.mangani@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.0",
+    "http-proxy": "^1.17.0",
+    "request": "^2.88.0"
+  }
+}
