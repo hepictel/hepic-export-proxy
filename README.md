@@ -1,5 +1,7 @@
-# hepic-export-proxy
-HEPIC Export Proxy w/ Authentication
+<img src="https://avatars2.githubusercontent.com/u/27866033?s=200&v=4">
+
+# HEPIC Export Proxy
+HEPIC Export Proxy w/ Relay Authentication
 
 
 ## Instructions
