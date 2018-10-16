@@ -4,7 +4,8 @@
   "description": "HEPIC Proxy Forwarded w/ Cookie Auth",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "L. Mangani (lorenzo.mangani@gmail.com)",
   "license": "ISC",
