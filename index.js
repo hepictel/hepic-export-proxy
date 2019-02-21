@@ -11,6 +11,7 @@ var request = require('request');
 var jar = request.jar();
 var randomId = Math.random().toString(36).slice(2);
 var homercookie = request.cookie("PCAPTURESESSION="+randomId+";path=/");
+var homerToken;
 
 /**********************
         OPTIONS
@@ -34,7 +35,7 @@ jar.setCookie(homercookie, apiSess, function(error, cookie) {});
 **********************/
 
 var authCache = false;
-var getAuth = function(setCookie){
+var getAuthCookie = function(setCookie){
     if(authCache) return;
     var auth = JSON.stringify({ "username": apiUser, "password": apiPass, "auth_type": "local" });
     if (debug) console.log(auth);
@@ -66,7 +67,48 @@ var getAuth = function(setCookie){
     }, timeOut*1000 );
 
     return;
+}
 
+var getAuthJWT = function(setCookie){
+    if(authCache) return;
+    var auth = { "username": apiUser, "password": apiPass};
+
+    if (debug) console.log(auth);
+    var headers = {
+      "Authorization" : homerToken,
+      "Content-Type" : "application/json;charset=UTF-8"
+    };    
+    
+    request({
+          uri: apiSess,
+          method: "POST",
+          json: auth,
+          headers: headers,
+          jar: jar
+        }, function(error, response, body) {
+          if (!body) {
+                console.log('API Error connecting to '+apiUrl);
+                console.log('Exiting...',error);
+                process.exit(1);
+          } else {
+                if (debug) console.log(body);
+                if (response.statusCode == 200){
+                        var token = body.token;
+                        if (!token){
+                                  console.log('API Auth Failure!', token); process.exit(1);
+                        }
+                        authCache = true;
+                        homerToken = token;
+                        return;                        
+                }
+          }
+    });
+
+    setInterval(function() {
+      authCache = false;
+    }, timeOut*1000 );
+
+    return;
 }
 
 /**********************
@@ -78,7 +120,12 @@ var http = require('http'),
 var proxy = httpProxy.createProxyServer({});
 
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
-  if (req.headers && req.headers.cookie) getAuth(req.headers.cookie);
+  if (req.headers && req.headers.cookie && !_config_.apiAuthJWT) getAuthCookie(req.headers.cookie);
+  else if(_config_.apiAuthJWT) {
+      getAuthJWT(res);
+      if(authCache && homerToken) proxyReq.setHeader('Authorization', homerToken);
+  }
+  
 });
 
 var server = http.createServer(function(req, res) {
