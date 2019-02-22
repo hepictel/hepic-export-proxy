@@ -1,6 +1,7 @@
 var config = {
         apiUrl: 'http://my.hepic.server/',
         apiSess: 'http://my.hepic.server/api/v2/session',
+        apiAuthJWT: false, //Activate for Homer7 setup
         apiUser: 'admin',
         apiPass: 'password',
         timeOut: 1800, // seconds
