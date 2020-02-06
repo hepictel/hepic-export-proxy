@@ -55,7 +55,7 @@ var getAuthCookie = function(setCookie){
                 if (response.statusCode == 200){
                         var status = JSON.parse(body).auth;
                         if (!status || status != true ){
-                                  console.log('API Auth Failure!', status); process.exit(1);
+                                  console.log('API Auth Failure!', status); return;
                         }
                         authCache = true;
                 }
@@ -95,7 +95,7 @@ var getAuthJWT = function(setCookie){
                 if (response.statusCode == 200){
                         var token = body.token;
                         if (!token){
-                                  console.log('API Auth Failure!', token); process.exit(1);
+                                  console.log('API Auth Failure!', token); return;
                         }
                         authCache = true;
                         homerToken = token;
