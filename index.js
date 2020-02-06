@@ -129,7 +129,14 @@ proxy.on('proxyReq', function(proxyReq, req, res, options) {
 });
 
 var server = http.createServer(function(req, res) {
-  if ( !req.url.startsWith('/share') && !req.url.startsWith('/api/v2/share/') ) {
+ if ( !req.url.startsWith('/share')
+        && !req.url.startsWith('/api/v2/share/')
+        && !req.url.startsWith('/lib')
+        && !req.url.startsWith('/css')
+        && !req.url.startsWith('/app')
+        && !req.url.startsWith('/templates')
+        && !req.url.startsWith('/fonts')
+  ){
         res.writeHead(401);
   }
   proxy.web(req, res, {
