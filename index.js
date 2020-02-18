@@ -144,5 +144,6 @@ var server = http.createServer(function(req, res) {
   });
 });
 
+getAuthCookie();
 console.log("HEPIC Export Proxy listening on port "+ _config_.proxyPort)
 server.listen(_config_.proxyPort);
