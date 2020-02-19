@@ -4,6 +4,7 @@ var config = {
         apiAuthJWT: false, //Activate for Homer7 setup
         apiUser: 'admin',
         apiPass: 'password',
+        apiSecret: '123456',
         timeOut: 1800, // seconds
         proxyHost: '0.0.0.0',
         proxyPort: 8765

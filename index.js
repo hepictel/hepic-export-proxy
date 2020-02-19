@@ -37,6 +37,11 @@ jar.setCookie(homercookie, apiSess, function(error, cookie) {});
 var authCache = false;
 var getAuthCookie = function(setCookie){
     if(authCache) return;
+    var headers = {
+      "Authorization" : homerToken,
+      "Content-Type" : "application/json;charset=UTF-8"
+
+    };    
     var auth = JSON.stringify({ "username": apiUser, "password": apiPass, "auth_type": "local" });
     if (debug) console.log(auth);
     if (setCookie) jar.setCookie(setCookie, apiSess, function(error, cookie) {});
@@ -44,6 +49,7 @@ var getAuthCookie = function(setCookie){
           uri: apiSess,
           method: "POST",
           form: auth,
+          headers: headers,
           jar: jar
         }, function(error, response, body) {
           if (!body) {
@@ -125,6 +131,7 @@ proxy.on('proxyReq', function(proxyReq, req, res, options) {
       getAuthJWT(res);
       if(authCache && homerToken) proxyReq.setHeader('Authorization', homerToken);
   }
+  proxyReq.setHeader('PCAPTUREAUTH', _config_.apiSecret);
   
 });
 
